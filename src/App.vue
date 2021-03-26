@@ -1,28 +1,68 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="filters">
+      <FlightOptions />
+      <Airlines v-bind:airlinesList='airlinesList' />
+    </div>
+    <div class="flightsList">
+      <FlightsList v-bind:flightsList='flightsList' />
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import FlightOptions from "@/components/FlightOptions";
+import Airlines from "@/components/Airlines";
+import FlightsList from "@/components/FlightsList";
+// import results from '@/static/results.json'
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    FlightOptions,
+    Airlines,
+    FlightsList,
+  },
+  data() {
+    return {
+      flightsList: [],
+      airlinesList: {},
+    };
+  },
+  mounted() {
+    this.getFlightsList();
+  },
+  methods: {
+    getFlightsList() {
+      fetch("results.json")
+        .then((res) => res.json())
+        .then((data) => {
+          this.airlinesList = data.airlines;
+          this.flightsList = data.flights;
+        })
+        .catch((err) => console.error("Error", err));
+    },
+  },
+};
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  padding: 40px 150px 0 150px;
+  display: flex;
+  font-family: "Open Sans", sans-serif;
+  /* font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 60px; */
+}
+.filters {
+  width: 240px;
+  margin-right: 20px;
+}
+.flightsList {
+  flex: 1;
 }
 </style>
