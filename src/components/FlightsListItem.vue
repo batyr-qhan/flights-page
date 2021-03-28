@@ -1,8 +1,8 @@
 <template>
   <li class="flight">
-    <div class="flight__info info">
-      <div class="info__main">
-        <ul class="info__logos">
+    <div class="flight__info-block info-block">
+      <div class="info-block__main">
+        <ul class="info-block__logos">
           <li v-for="segment of segments" :key="segment.arr_time_iso">
             <img
               v-bind:src="
@@ -14,12 +14,12 @@
             />
           </li>
         </ul>
-        <div class="info__departure info__item">
+        <div class="info-block__departure">
           <span>{{ depDate }}</span>
           <span>{{ depTime }}</span>
         </div>
-        <div class="info__path">
-          <ul class="info__progressbar">
+        <div class="info-block__path">
+          <ul class="info-block__progressbar">
             <li v-for="destination of segments" :key="destination.arr_time_iso">
               {{ destination.origin_code }}
             </li>
@@ -28,12 +28,12 @@
             </li>
           </ul>
         </div>
-        <div class="info__arrival">
+        <div class="info-block__arrival">
           <span>{{ depDate }}</span>
           <span>{{ depTime }}</span>
         </div>
       </div>
-      <div class="info__footer">
+      <div class="info-block__footer">
         <a href=""><span>Детали перелета</span></a>
         <a href=""><span>Условия тарифа</span></a>
         <a href=""><span>Невозвратный</span></a>
@@ -89,50 +89,50 @@ export default {
   display: flex;
   margin-bottom: 12px;
 }
-.flight__info {
+.flight__info-block {
   display: flex;
   flex-direction: column;
   padding: 20px 40px;
   display: flex;
 }
-.info__main {
+.info-block__main {
   display: flex;
   flex: 1;
   align-items: center;
 }
-.info__logos {
+.info-block__logos {
   display: flex;
   flex-basis: 15%;
 }
-.info__logos li {
+.info-block__logos li {
   margin-right: 5px;
 }
-.info__logos img {
+.info-block__logos img {
   width: 35px;
   height: 35px;
 }
-.info__departure {
+.info-block__departure {
   display: flex;
   flex-direction: column;
   padding-left: 25px;
 }
-.info__departure span {
+.info-block__departure span {
   text-align: center;
 }
-.info__departure span:first-child {
+.info-block__departure span:first-child {
   font-size: 12px;
 }
-.info__departure span:last-child {
+.info-block__departure span:last-child {
   font-size: 24px;
 }
-.info__path {
+.info-block__path {
   flex: 1;
 }
-.info__progressbar {
+.info-block__progressbar {
   display: flex;
   justify-content: space-between;
 }
-.info__progressbar li {
+.info-block__progressbar li {
   flex: 1;
   font-size: 12px;
   position: relative;
@@ -140,7 +140,7 @@ export default {
   text-transform: uppercase;
   color: #7d7d7d;
 }
-.info__progressbar li:before {
+.info-block__progressbar li:before {
   width: 5px;
   height: 5px;
   content: "";
@@ -153,7 +153,7 @@ export default {
   background-color: white;
   z-index: 10;
 }
-.info__progressbar li:after {
+.info-block__progressbar li:after {
   width: 100%;
   height: 1px;
   content: "";
@@ -163,38 +163,38 @@ export default {
   left: -50%;
   /* z-index: -1; */
 }
-.info__progressbar li:first-child:after {
+.info-block__progressbar li:first-child:after {
   content: none;
 }
-.info__progressbar li.active {
+.info-block__progressbar li.active {
   color: green;
 }
-.info__progressbar li.active:before {
+.info-block__progressbar li.active:before {
   border-color: #55b776;
 }
-.info__progressbar li.active + li:after {
+.info-block__progressbar li.active + li:after {
   background-color: #55b776;
 }
-.info__arrival {
+.info-block__arrival {
   display: flex;
   flex-direction: column;
   padding-right: 25px;
 }
-.info__arrival span {
+.info-block__arrival span {
   text-align: center;
 }
-.info__arrival span:first-child {
+.info-block__arrival span:first-child {
   font-size: 12px;
 }
-.info__arrival span:last-child {
+.info-block__arrival span:last-child {
   font-size: 24px;
 }
-.info__footer {
+.info-block__footer {
   display: flex;
   height: 50px;
   align-items: flex-end;
 }
-.info__footer a {
+.info-block__footer a {
   font-size: 12px;
   margin-right: 12px;
   border-bottom: 1px dashed;
@@ -230,7 +230,7 @@ export default {
 .flight__price span {
   text-align: center;
 }
-.flight__info {
+.flight__info-block {
   flex: 1;
 }
 </style>
