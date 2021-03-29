@@ -2,19 +2,34 @@
   <div class="options">
     <p class="options__title">Опции тарифа</p>
     <div class="options__checkbox">
-      <input type="checkbox" id="onlyDirect" />
+      <input v-model="optionsFilters" value="onlyDirect" type="checkbox" id="onlyDirect" />
       <label for="onlyDirect">Только прямые</label>
     </div>
     <div class="options__checkbox">
-      <input type="checkbox" id="withBaggage" />
+      <input v-model="optionsFilters" value="withBaggage" type="checkbox" id="withBaggage" />
       <label for="withBaggage">Только с багажом</label>
     </div>
     <div class="options__checkbox">
-      <input type="checkbox" id="onlyReturn" />
+      <input v-model="optionsFilters" value="onlyReturn" type="checkbox" id="onlyReturn" />
       <label for="onlyReturn">Только возвратные</label>
     </div>
   </div>
 </template> 
+
+<script>
+export default {
+  data() {
+    return {
+      optionsFilters: []
+    }
+  },
+  watch: {
+    optionsFilters: function() {
+      this.$emit('clicked', this.optionsFilters)
+    }  
+  }
+}
+</script>
 
 <style scoped>
 .options {

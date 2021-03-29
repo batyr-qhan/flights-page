@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="filters">
-      <FlightOptions />
+      <FlightOptions @clicked='onCheckboxClick' />
       <Airlines v-bind:airlinesList='airlinesList' />
     </div>
     <div class="flightsList">
@@ -14,7 +14,6 @@
 import FlightOptions from "@/components/FlightOptions";
 import Airlines from "@/components/Airlines";
 import FlightsList from "@/components/FlightsList";
-// import results from '@/static/results.json'
 
 export default {
   name: "App",
@@ -27,12 +26,17 @@ export default {
     return {
       flightsList: [],
       airlinesList: {},
+      optionsFilters: []
     };
   },
   mounted() {
     this.getFlightsList();
   },
   methods: {
+    onCheckboxClick(value) {
+      this.optionsFilters = value
+      console.log(value)
+    },
     getFlightsList() {
       fetch("results.json")
         .then((res) => res.json())
@@ -43,6 +47,11 @@ export default {
         .catch((err) => console.error("Error", err));
     },
   },
+  // watch: {
+  //   optionsFilters(val) {
+  //     console.log(val)
+  //   }
+  // }
 };
 </script>
 
