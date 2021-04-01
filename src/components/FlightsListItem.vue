@@ -199,7 +199,7 @@ export default {
   margin-right: 12px;
   border-bottom: 1px dashed;
   padding-bottom: 2px;
-  color: #7284E4;
+  color: #7284e4;
 }
 .flight__price {
   width: 240px;

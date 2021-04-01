@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <div class="filters">
-      <FlightOptions @clicked='onCheckboxClick' />
-      <Airlines v-bind:airlinesList='airlinesList' />
+      <FlightOptions @clicked="onCheckboxClick" />
+      <Airlines v-bind:airlinesList="airlinesList" />
     </div>
     <div class="flightsList">
-      <FlightsList v-bind:flightsList='flightsList' />
+      <FlightsList v-bind:flightsList="filteredFlightsList" />
     </div>
   </div>
 </template>
@@ -26,7 +26,7 @@ export default {
     return {
       flightsList: [],
       airlinesList: {},
-      optionsFilters: []
+      optionsFilters: [],
     };
   },
   mounted() {
@@ -34,8 +34,8 @@ export default {
   },
   methods: {
     onCheckboxClick(value) {
-      this.optionsFilters = value
-      console.log(value)
+      this.optionsFilters = value;
+      console.log(value);
     },
     getFlightsList() {
       fetch("results.json")
@@ -47,11 +47,32 @@ export default {
         .catch((err) => console.error("Error", err));
     },
   },
-  // watch: {
-  //   optionsFilters(val) {
-  //     console.log(val)
-  //   }
-  // }
+  computed: {
+    filteredFlightsList() {
+      if (!this.optionsFilters.length) return this.flightsList;
+
+      let result = this.flightsList;
+
+      console.log("before loop", result);
+
+      this.optionsFilters.forEach((item) => {
+        if (item === "onlyDirect") {
+          result = result.filter((flight) => {
+            return flight.itineraries[0][0].stops === 0;
+          });
+        }
+        // if (item === 'withBaggage') {
+        //   console.log('catched with baggage')
+        // }
+        if (item === "onlyReturn") {
+          result = result.filter((flight) => {
+            return flight.refundable === true;
+          });
+        }
+      });
+      return result;
+    },
+  },
 };
 </script>
 
